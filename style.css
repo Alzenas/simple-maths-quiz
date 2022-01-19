@@ -48,6 +48,10 @@ main aside form div:first-of-type {
     display: block;
 }
 
+p {
+    text-align: justify;
+}
+
 p::selection {
     color: white;
     background-color: hotpink;
