@@ -300,6 +300,11 @@ function continuePlay() {
     const contButton = document.querySelector('#continuebutton');
     inSection.removeChild(contButton);
 
+    // Remove last score details
+    const scoreText = document.querySelector('main article p.endofplay');
+    const questionParas = document.querySelector('main article .questions')
+    questionParas.removeChild(scoreText);
+
     // enable confirmation button
     const confButton =  inSection.querySelector('button.bigbutton');
     confButton.hidden = false;
@@ -320,7 +325,12 @@ function continuePlay() {
     insertNewQuestion(questionAsked);
 }
 
-const questionsInRound = 2;
+function getQuestionsInRound() {
+    qInRound = parseInt(document.querySelector('#questionsperround').value);
+    return qInRound;
+}
+
+let questionsInRound = getQuestionsInRound();
 let maxQuestions = questionsInRound;
 let correctAnswers = 0;
 let wrongAnswers = 0;
