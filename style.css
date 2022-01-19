@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+}
+
+main section:first-of-type {
+    position: relative;
+}
+
+article, aside {
+    display: inline-block;
+}
+
+article {
+    width: 60%;
+}
+
+aside {
+    width: auto;
+    position: absolute;
+    top: 0;
+}
