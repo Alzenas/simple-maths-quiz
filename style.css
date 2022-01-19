@@ -11,7 +11,7 @@ main section:first-of-type {
     position: relative;
 }
 
-article, aside {
+main article, main aside {
     display: inline-block;
 }
 
@@ -22,13 +22,27 @@ main article {
 }
 
 main aside {
+    background-color: #eee;
     width: auto;
     top: 0;
     padding-left: 2rem;
+    padding-bottom: 2rem;
+    border-radius: 2em;
+    filter: drop-shadow(0em 0em 1em rgba(0, 0, 0, 0.5));
 }
 
 main aside form label {
     margin-bottom: 0.25em;
+}
+
+main aside input, main aside select {
+    margin-right: 2rem;
+    padding: 0.25em;
+}
+
+/* Distance between tick and label */
+#keepscore {
+    margin-right: 0.5em;
 }
 
 #playername {
