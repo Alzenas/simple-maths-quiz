@@ -1,6 +1,10 @@
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
 body {
     margin: 0;
-    font-family: 'Times New Roman', Times, serif;
+    /* font-family: 'Times New Roman', Times, serif; */
 }
 
 main {
@@ -123,7 +127,7 @@ button:active, .mainnav a:active {
 .wrong,
 #answer,
 .endofplay {
-    font-size: 1.5rem;
+    font-size: 1rem;
     padding: 1em 2em;
 }
 
