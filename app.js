@@ -153,7 +153,7 @@ function randInt(from, to, ...dontCare) {
 
 
 // Generate a random question
-function generateQuestion(diffLevel=1) {
+function generateQuestion(diffLevel = 1) {
     // Generate a random question
     const randPerson = listOfPeople.pickPerson();
     const item = things.pickItem();
@@ -167,24 +167,24 @@ function generateQuestion(diffLevel=1) {
     text += `to buy ${numItems} ${item.plural}?`
 
     // Return correct answer
-    return {question: text, answer: itemPrice * numItems};
+    return { question: text, answer: itemPrice * numItems };
 }
 
 
-// Marks last question as correct or wrong
-// pass 'correct' or 'wrong'
-function markLastQuestion(statusId='correct') {
+// Mark last question as correct or wrong based on arguments passed
+function markLastQuestion(statusId = 'correct') {
     // Select last paragraph in .questions section:
     question = document.querySelector('.questions p:last-child')
-    question.id = statusId;
+    question.classList.add(statusId);
+    question.id = '';
 }
 
-// Inserts new question into the document
-function insertNewQuestion({question, answer}, selectorId='question') {
+// Insert new question into the document
+function insertNewQuestion({ question, answer }, selectorId = 'question') {
     const inSection = document.querySelector('.questions');
     const p = document.createElement('p');
     p.id = selectorId;
-    p.innerText = `Question ${currentQuestion}.\n\n` + question;
+    p.innerHTML = `<span class="questiontitle">Question ${currentQuestion}.</span>` + question;
     inSection.appendChild(p);
 
     const answerBox = document.querySelector('#answer');
@@ -193,46 +193,77 @@ function insertNewQuestion({question, answer}, selectorId='question') {
 
     currentQuestion++;
 
-    return {question, answer};
+    return { question, answer };
 }
 
-function insertCorrectAnswer({question, answer}, selectorId='correctanswer') {
+
+// Insert a correct answer into document model
+function insertCorrectAnswer({ question, answer }, selectorId = 'correctanswer') {
     const inSection = document.querySelector('.questions');
     const p = document.createElement('p');
-    p.id = selectorId;
+    p.classList.add(selectorId);
     p.innerHTML = `<span class='correctiontext'>${getAnswerFromHTML()}</span> is not a correct answer. The correct answer was: <span class='correctiontext'>${answer}</span>.`;
     inSection.appendChild(p);
 }
 
-// Get an asnwer from DOM
+// Get user's answer from document model
 function getAnswerFromHTML() {
     const givenAnswer = parseFloat(document.querySelector('#answer').value);
     return givenAnswer;
 }
 
 
+// Check if answer given by the user is correct
 function isAnswerCorrect() {
     const response = getAnswerFromHTML();
-    return response  === questionAsked.answer;
+    if (isNaN(response)) {
+        return response;
+    }
+    return response === questionAsked.answer;
 }
 
+
+// Provide a response to user's answer
 function checkAnswer() {
-    if (isAnswerCorrect()) {
-        markLastQuestion('correct');
-        correctAnswers++;
+    const htmlAnswer = isAnswerCorrect();
+    if (!isNaN(htmlAnswer)) {
+        if (htmlAnswer) {
+            markLastQuestion('correct');
+            correctAnswers++;
+        }
+        else {
+            markLastQuestion('wrong');
+            wrongAnswers++;
+            maxQuestions++;
+            insertCorrectAnswer(questionAsked);
+        }
+        if (currentQuestion <= maxQuestions) {
+            questionAsked = generateQuestion()
+            insertNewQuestion(questionAsked);
+        }
+        else {
+            endOfPlay();
+        }
     }
-    else {
-        markLastQuestion('wrong');
-        wrongAnswers++;
-        insertCorrectAnswer(questionAsked);
-    }
-    questionAsked = generateQuestion()
-    insertNewQuestion(questionAsked);
     const answerBox = document.querySelector('#answer');
     answerBox.value = '';
     answerBox.focus();
 }
 
+
+function endOfPlay() {
+    const score = Math.round(100 * (correctAnswers / maxQuestions), 0);
+    const inSection = document.querySelector('.questions');
+    const p = document.createElement('p');
+    p.classList.add('endofplay');
+    let = finalMessage =  `This was the last question of this round. `;
+    finalMessage += `Your final score is: <span id='finalscore'>${score}%</span>.`;
+    p.innerHTML = finalMessage;
+    inSection.appendChild(p);
+}
+
+
+let maxQuestions = 2;
 let correctAnswers = 0;
 let wrongAnswers = 0;
 let currentQuestion = 1;
@@ -240,5 +271,5 @@ let questionAsked = generateQuestion();
 
 if (document.body.classList.contains('mathquestions')) {
     insertNewQuestion(questionAsked);
+    document.querySelector('#answer').focus();
 }
-

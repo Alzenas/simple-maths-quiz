@@ -51,7 +51,8 @@ main aside input, main aside select {
 }
 
 main aside form div {
-    padding: 0.25em 0em 1em;  /* top right bottom*/
+    padding: 0.25em 0em 1em;
+    /* top right bottom*/
 }
 
 main aside form div:first-of-type {
@@ -114,48 +115,76 @@ button:active, .mainnav a:active {
     filter: drop-shadow(0.1em 0.1em 0.2em #706677);
 }
 
-.bigbutton, #topquestion, #correctanswer, #question, #correct, #wrong, #answer {
+.bigbutton,
+#topquestion,
+.correctanswer,
+#question,
+.correct,
+.wrong,
+#answer,
+.endofplay {
     font-size: 1.5rem;
     padding: 1em 2em;
 }
 
 label[for="answer"] {
-    color:#706677;
+    color: #706677;
     font-size: 1.2rem;
     margin: 3rem 1rem 1rem;
 }
 
-#topquestion {
+/* TODO: Need to change these to classes rather than IDs */
+#topquestion, 
+#question, 
+#answer,
+.correctanswer, 
+.correct, 
+.wrong, 
+.endofplay {
     width: fit-content;
     color: white;
-    background-color:#fd9e02;
     border-radius: 1em;
     filter: drop-shadow(0em 0em 0.5em rgba(0, 0, 0, 0.5));
+}
+
+#topquestion {
+    background-color: #fd9e02;
 }
 
 #question {
-    width: fit-content;
-    color: white;
-    background-color:#126782;
-    border-radius: 1em;
-    filter: drop-shadow(0em 0em 0.5em rgba(0, 0, 0, 0.5));
+    background-color: #126782;
 }
 
-#correct {
-    width: fit-content;
-    color: white;
-    background-color:green;
-    border-radius: 1em;
-    filter: drop-shadow(0em 0em 0.5em rgba(0, 0, 0, 0.5));
+#answer {
+    color: #023047;
+    background-color: #eee;
+    border: none;
 }
 
-#correctanswer {
-    width: fit-content;
-    color:#126782;
+#finalscore {
+    font-weight: bold;
+    text-align: center;
+    font-size: 2em;
+}
+
+.wrong {
     margin-left: 5rem;
-    background-color:whitesmoke;
-    border-radius: 1em;
-    filter: drop-shadow(0em 0em 0.5em rgba(0, 0, 0, 0.5));
+    background-color: darkred;
+}
+
+.correct {
+    background-color: green;
+}
+
+.correctanswer {
+    color: #126782;
+    background-color: whitesmoke;
+    margin-left: 5rem;
+}
+
+.endofplay {
+    color: white;
+    background-color: #fd9e02;
 }
 
 .correctiontext {
@@ -164,19 +193,8 @@ label[for="answer"] {
     font-size: 1.1em;
 }
 
-#wrong {
-    width: fit-content;
-    margin-left: 5rem;
-    color: white;
-    background-color: darkred;
-    border-radius: 1em;
-    filter: drop-shadow(0em 0em 0.5em rgba(0, 0, 0, 0.5));
-}
-
-#answer {
-    color:#023047;
-    border-radius: 1em;
-    background-color: #eee;
-    border: none;
-    filter: drop-shadow(0em 0em 0.5em rgba(0, 0, 0, 0.5));
+.questiontitle {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 1em;
 }
