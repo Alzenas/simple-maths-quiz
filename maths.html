@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="mathquestions">
     <header>
         <!-- Navigation -->
         <nav class="mainnav">
@@ -18,16 +18,16 @@
     </header>
     <main>
         <h1>Play maths!</h1>
-        <section>
-            <p id="question">
-                Here is a simple maths question. Can you answer it?
+        <section class="questions">
+            <p id="topquestion">
+                Here are some simple maths questions. <br>Can you answer them?
             </p>
         </section>
         <section>
             <p>
                 <label class="block" for="answer">Place your answer in the box below.</label>
-            <input id="answer" type="number" min="0">
-            <button class="bigbutton" onclick="displayQuestion()">Confirm</button>
+                <input id="answer" type="number" min="0">
+                <button class="bigbutton" onclick=checkAnswer()>Confirm</button>
             </p>
         </section>
     </main>
