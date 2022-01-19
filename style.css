@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 main {
@@ -99,7 +100,6 @@ button, .mainnav a {
 button:hover, .mainnav a:hover {
     background-color: #fd9e02;
     color: white;
-    font-style: italic;
     border-top-left-radius: 1em;
     border-bottom-left-radius: 4em;
     border-top-right-radius: 4em;
