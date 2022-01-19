@@ -251,7 +251,9 @@ function checkAnswer() {
 }
 
 
+// Runs when the last question of the round was done
 function endOfPlay() {
+    // Prepare a message
     const score = Math.round(100 * (correctAnswers / maxQuestions), 0);
     const inSection = document.querySelector('.questions');
     const p = document.createElement('p');
@@ -260,10 +262,66 @@ function endOfPlay() {
     finalMessage += `Your final score is: <span id='finalscore'>${score}%</span>.`;
     p.innerHTML = finalMessage;
     inSection.appendChild(p);
+
+    // Disable current button, answer box and answer label
+    answerButton = document.querySelector('button.bigbutton');
+    answerBox = document.querySelector('#answer');
+    answerLabel = document.querySelector('label[for="answer"]');
+    answerButton.hidden = true;
+    answerBox.hidden = true;
+    answerLabel.hidden = true;
+    answerLabel.classList.toggle('block');
+
+    // Add new button for continuation of play, 
+    // to ask the user if they want to continue
+    addBigButton();
+}
+
+function addBigButton(text='Continue?') {
+    // Select the paragraph to which the big button will be added
+    inSection = document.querySelector('main section:last-of-type p');
+
+    // create a new big button
+    const newButton = document.createElement('button');
+    newButton.classList.add('bigbutton');
+    newButton.id = 'continuebutton'
+    newButton.innerText = text;
+    inSection.appendChild(newButton);
+    newButton.focus();
+
+    // Define onclick action for the button
+    newButton.setAttribute('onclick', "continuePlay()");
 }
 
 
-let maxQuestions = 2;
+function continuePlay() {
+    // remove continuation button
+    const inSection = document.querySelector('main section:last-of-type p');
+    const contButton = document.querySelector('#continuebutton');
+    inSection.removeChild(contButton);
+
+    // enable confirmation button
+    const confButton =  inSection.querySelector('button.bigbutton');
+    confButton.hidden = false;
+
+    // show previusly hidden button, answer box and answer label
+    answerBox = document.querySelector('#answer');
+    answerLabel = document.querySelector('label[for="answer"]');
+    answerBox.hidden = false;
+    answerLabel.hidden = false;
+    answerLabel.classList.toggle('block');
+
+
+    // Set counters 
+    maxQuestions += questionsInRound;
+
+    // Insert new question
+    questionAsked = generateQuestion();
+    insertNewQuestion(questionAsked);
+}
+
+const questionsInRound = 2;
+let maxQuestions = questionsInRound;
 let correctAnswers = 0;
 let wrongAnswers = 0;
 let currentQuestion = 1;
