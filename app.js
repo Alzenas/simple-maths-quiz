@@ -36,7 +36,15 @@ const things = {
         'pencil, pencils',
         'notebook, notebooks',
         'desk chair, desk chairs',
-        'roll of paper, paper rolls'
+        'roll of paper, paper rolls',
+        'picture frame, picture frames',
+        'buildable drawer, buildable drawers',
+        'computer game, games',
+        'Ludo set, Ludo sets',
+        'envelope, envelopes',
+        'post mark, post marks',
+        'pillow, pillows',
+        'monitor stand, stands for computer monitors'
     ],
     listOfItems: [],
 
@@ -84,6 +92,10 @@ const listOfPeople = {
     ],
     femaleNames: [
         'Mira',
+        'Mom',
+        'Tania',
+        'Anna',
+        'Elham',
         'Sophia',
         'Tatiana',
         'Alice',
@@ -329,6 +341,7 @@ function continuePlay() {
 
 function setQuestionsInRound() {
     questionsInRound = parseInt(document.querySelector('#questionsperround').value);
+    maxQuestions = questionsInRound;
     return questionsInRound;
 }
 
@@ -351,6 +364,7 @@ function showSetUp(show=true) {
 function startPlay() {
     showMainArticle(true);
     showSetUp(false);
+    setQuestionsInRound();
 }
 
 

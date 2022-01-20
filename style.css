@@ -10,16 +10,12 @@ main {
     margin: 2rem;
 }
 
-/* Set positioning of first section in main
-main section:first-of-type {
-    position: relative;
-} */
-
 main {
     position: relative;
 }
 
 main article, main aside {
+    margin: auto;
     visibility: collapse;
     position: absolute;
     top: 0px;
@@ -33,7 +29,6 @@ main article {
 
 main aside {
     background-color: #eee;
-    width: auto;
     top: 0;
     padding-left: 2rem;
     padding-bottom: 2rem;
