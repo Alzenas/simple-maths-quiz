@@ -38,6 +38,8 @@ main aside {
 
 main aside form label {
     margin-bottom: 0.25em;
+    padding-right: 2rem;
+    max-width: 18em;
 }
 
 main aside input, main aside select {
