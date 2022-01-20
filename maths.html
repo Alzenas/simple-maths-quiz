@@ -19,7 +19,8 @@
         <!-- Navigation -->
         <nav class="mainnav">
             <a href="index.html" rel="noopener noreferrer" title="Go back to home page">Home</a>
-            <a href="" target="_self" rel="noopener noreferrer" title="Reset the settings and restart the play">Restart Play</a>
+            <a href="" target="_self" rel="noopener noreferrer" title="Reset the settings and restart the play">Restart
+                Play</a>
         </nav>
     </header>
     <main>
@@ -33,7 +34,8 @@
             </section>
             <section>
                 <p>
-                    <label class="block" for="answer">Place your answer in the box below. <span id="remainingquestions"></span></label>
+                    <label class="block" for="answer">Place your answer in the box below. <span
+                            id="remainingquestions"></span></label>
                     <input id="answer" type="number" min="0">
                     <button id="confirmanswer" class="bigbutton">Answer</button>
                     <!-- New big button (for continuation) is inserted hereafter -->
@@ -54,10 +56,11 @@
                 <div>
                     <label class="block" for="difficultylevel">Select difficulty level: </label>
                     <select name="level" id="difficultylevel" required>
-                        <option name="level" value="">-- Select Difficulty --</option>
-                        <option name="level" value="1" selected>Level 1</option>
-                        <option name="level" value="2">Level 2</option>
-                        <option name="level" value="3" disabled>Level 3 (not implemented)</option>
+                        <option name="level" value="" disabled>-- Select Difficulty --</option>
+                            <option name="level" value="1" selected>Comprehension - Level 1 (Multiplication)</option>
+                            <option name="level" value="2">Equations - Level 1 (Addition/Subtraction)</option>
+                            <option name="level" value="3">Equations - Level 2 (Addition/Subtraction)</option>
+                            <option name="level" value="mixed">Mixed Challenge</option>
                     </select>
                 </div>
                 <div>

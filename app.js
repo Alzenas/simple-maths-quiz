@@ -201,10 +201,20 @@ function generateQuestion(diffLevel = 1) {
     let question;
     let answer;
 
+    let  minMultiplier;
+    let maxMultiplier;
+    let upperValue;
+    let lowerValue;
+    let first;
+    let second;
+    let min;
+    let max;
+    let text = [];
+
     switch (diffLevel) {
         case 1:
-            const minMultiplier = 2;  // Given as a variable for future control
-            const maxMultiplier = 10;  // Given as a variable for future control
+            minMultiplier = 2;  // Given as a variable for future control
+            maxMultiplier = 10;  // Given as a variable for future control
             const numItems = randInt(minMultiplier, maxMultiplier);
             const itemPrice = randInt(minMultiplier, maxMultiplier);
             const randPerson = listOfPeople.pickPerson();
@@ -219,26 +229,43 @@ function generateQuestion(diffLevel = 1) {
             break;
 
         case 2:
-            const upperValue = 100;
-            const lowerValue = 2;
-            const first = randInt(lowerValue, upperValue);
-            const second = randInt(lowerValue, upperValue);
-            const max = Math.max(first, second);
-            const min = Math.min(first, second);
-            const text = [];
+            upperValue = 50;
+            lowerValue = 2;
+            first = randInt(lowerValue, upperValue);
+            second = randInt(lowerValue, upperValue);
+            max = Math.max(first, second);
+            min = Math.min(first, second);
+            text = [];
             text.push({ question: `If we take that <span class="equation">X + ${min} = ${max},</span> which value of <span class="equation">X</span> would satisfy the equation? <p class="hint">(HINT: Which number do you need to add to ${min}, so that the final result is ${max}?)</p>`, answer: max - min });
             text.push({ question: `Given that <span class="equation">${max} - X = ${min},</span> which value of <span class="equation">X</span> would balance the equation? <p class="hint">(HINT: Which value needs to be subtracted from ${max} so that the final result is ${min}?)</p>`, answer: max - min });
             text.push({ question: `What is the value of <span class="equation">X</span> in the equation below? <p><span class="equation">${max} - ${min} = X</span></p><p class="hint">(HINT: Subtract ${min} from ${max} to get the answer.)</p>`, answer: max - min });
-            text.push({ question: `What is the value of <span class="equation">X</span> in the equation below?<p class="equation">${upperValue - max} + ${min} = X</p>
-            <p class="hint">(HINT: Adding the numbers together would give you the result.)</p>`, answer: (upperValue - max) + min });
+            text.push({
+                question: `What is the value of <span class="equation">X</span> in the equation below?<p class="equation">${upperValue - max} + ${min} = X</p>
+            <p class="hint">(HINT: Adding the numbers together would give you the result.)</p>`, answer: (upperValue - max) + min
+            });
 
             // Destructure
-            ({question, answer} = choice(text));
+            ({ question, answer } = choice(text));
             break;
 
         case 3:
-            question = "Level 2";
-            answer = 3;
+            upperValue = 100;
+            lowerValue = 10;
+            first = randInt(lowerValue, upperValue);
+            second = randInt(lowerValue, upperValue);
+            max = Math.max(first, second);
+            min = Math.min(first, second);
+            text = [];
+            text.push({ question: `If we take that <span class="equation">X + ${min} = ${max},</span> which value of <span class="equation">X</span> would satisfy the equation? <p class="hint">(HINT: Which number do you need to add to ${min}, so that the final result is ${max}?)</p>`, answer: max - min });
+            text.push({ question: `Given that <span class="equation">${max} - X = ${min},</span> which value of <span class="equation">X</span> would balance the equation? <p class="hint">(HINT: Which value needs to be subtracted from ${max} so that the final result is ${min}?)</p>`, answer: max - min });
+            text.push({ question: `What is the value of <span class="equation">X</span> in the equation below? <p><span class="equation">${max} - ${min} = X</span></p><p class="hint">(HINT: Subtract ${min} from ${max} to get the answer.)</p>`, answer: max - min });
+            text.push({
+                question: `What is the value of <span class="equation">X</span> in the equation below?<p class="equation">${upperValue - max} + ${min} = X</p>
+                <p class="hint">(HINT: Adding the numbers together would give you the result.)</p>`, answer: (upperValue - max) + min
+            });
+
+            // Destructure
+            ({ question, answer } = choice(text));
             break;
 
         default:
@@ -252,7 +279,7 @@ function generateQuestion(diffLevel = 1) {
 // Mark last question as correct or wrong based on arguments passed
 function markLastQuestion(statusId = 'correct') {
     // Select last paragraph in .questions section:
-    question = document.querySelector('#question')
+    question = document.querySelector('#question')       
     question.classList.add(statusId);
     question.id = '';
 }
@@ -417,7 +444,13 @@ function setQuestionsInRound() {
 }
 
 function setDifficultyLevel() {
-    difficulty = parseInt(document.querySelector('#difficultylevel').value);
+    difficulty = document.querySelector('#difficultylevel').value;
+    if (difficulty != 'mixed') {
+        difficulty = parseInt(difficulty);
+        return difficulty;
+    }
+    // Otherwise, mix difficulty levels
+    difficulty = randInt(1, 3);
     return difficulty;
 }
 
@@ -472,7 +505,7 @@ let difficulty;
 
 // For when difficulty level is changed
 diffLevelDropDown = document.querySelector('#difficultylevel');
-diffLevelDropDown.addEventListener('change', () =>  setDifficultyLevel());
+diffLevelDropDown.addEventListener('change', () => setDifficultyLevel());
 
 // For when questions per round is changed
 questPerRoundNumber = document.querySelector('#questionsperround');
