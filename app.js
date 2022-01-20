@@ -203,10 +203,12 @@ function generateQuestion(diffLevel = 1) {
 
     switch (diffLevel) {
         case 1:
+            const minMultiplier = 2;  // Given as a variable for future control
+            const maxMultiplier = 10;  // Given as a variable for future control
+            const numItems = randInt(minMultiplier, maxMultiplier);
+            const itemPrice = randInt(minMultiplier, maxMultiplier);
             const randPerson = listOfPeople.pickPerson();
             const item = things.pickItem();
-            const numItems = randInt(2, 10);
-            const itemPrice = randInt(2, 10);
             const currencyName = 'Dirhams';
 
             question = `${randPerson.name} wants to buy some ${item.plural}. `;
@@ -217,13 +219,18 @@ function generateQuestion(diffLevel = 1) {
             break;
 
         case 2:
-            const first = randInt(2, 100);
-            const second = randInt(2, 100);
+            const upperValue = 100;
+            const lowerValue = 2;
+            const first = randInt(lowerValue, upperValue);
+            const second = randInt(lowerValue, upperValue);
             const max = Math.max(first, second);
             const min = Math.min(first, second);
             const text = [];
-            text.push({ question: `For <span class="equation">X + ${min} = ${max}</span>, what is the value of <span class="equation">X</span>?`, answer: max - min });
-            text.push({ question: `For <span class="equation">${max} - Y = ${min}</span>, what is the value of <span class="equation">Y</span>?`, answer: max - min });
+            text.push({ question: `If we take that <span class="equation">X + ${min} = ${max},</span> which value of <span class="equation">X</span> would satisfy the equation? <p class="hint">(HINT: Which number do you need to add to ${min}, so that the final result is ${max}?)</p>`, answer: max - min });
+            text.push({ question: `Given that <span class="equation">${max} - X = ${min},</span> which value of <span class="equation">X</span> would balance the equation? <p class="hint">(HINT: Which value needs to be subtracted from ${max} so that the final result is ${min}?)</p>`, answer: max - min });
+            text.push({ question: `What is the value of <span class="equation">X</span> in the equation below? <p><span class="equation">${max} - ${min} = X</span></p><p class="hint">(HINT: Subtract ${min} from ${max} to get the answer.)</p>`, answer: max - min });
+            text.push({ question: `What is the value of <span class="equation">X</span> in the equation below?<p class="equation">${upperValue - max} + ${min} = X</p>
+            <p class="hint">(HINT: Adding the numbers together would give you the result.)</p>`, answer: (upperValue - max) + min });
 
             // Destructure
             ({question, answer} = choice(text));
@@ -245,7 +252,7 @@ function generateQuestion(diffLevel = 1) {
 // Mark last question as correct or wrong based on arguments passed
 function markLastQuestion(statusId = 'correct') {
     // Select last paragraph in .questions section:
-    question = document.querySelector('.questions p:last-child')
+    question = document.querySelector('#question')
     question.classList.add(statusId);
     question.id = '';
 }

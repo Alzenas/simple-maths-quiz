@@ -215,9 +215,14 @@ p a {
     color: darkred;
 }
 
-span.equation {
+.equation {
     color:#ffb703;
     font-style: italic;
     font-weight: bold;
     font-size: 1em;
+    padding: 0.25em 0.5em;
+}
+
+.hint {
+    color:#fd9e02;
 }
