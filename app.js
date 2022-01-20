@@ -364,6 +364,11 @@ function showSetUp(show=true) {
 function startPlay() {
     showMainArticle(true);
     showSetUp(false);
+
+    // Set answer box focus
+    const answerBox = document.querySelector('#answer');
+    answerBox.focus();
+
     setQuestionsInRound();
 }
 
