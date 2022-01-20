@@ -190,6 +190,11 @@ function randInt(from, to, ...dontCare) {
 }
 
 
+// Returns a randomly selected item from the list
+function choice(arr) {
+    return arr[randInt(arr.length - 1)];
+}
+
 // Generate a random question
 function generateQuestion(diffLevel = 1) {
     // Generate a random questions
@@ -220,9 +225,8 @@ function generateQuestion(diffLevel = 1) {
             text.push({ question: `For <span class="equation">X + ${min} = ${max}</span>, what is the value of <span class="equation">X</span>?`, answer: max - min });
             text.push({ question: `For <span class="equation">${max} - Y = ${min}</span>, what is the value of <span class="equation">Y</span>?`, answer: max - min });
 
-            const rand = randInt(text.length - 1);
-            question = text[rand].question;
-            answer = text[rand].answer;
+            // Destructure
+            ({question, answer} = choice(text));
             break;
 
         case 3:
