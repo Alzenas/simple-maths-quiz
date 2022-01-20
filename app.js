@@ -308,6 +308,7 @@ function checkAnswer() {
             setDifficultyLevel();
             questionAsked = generateQuestion(difficulty)
             insertNewQuestion(questionAsked);
+            questionsRemainingMessage();
         }
         else {
             endOfPlay();
@@ -395,6 +396,7 @@ function continuePlay() {
     setDifficultyLevel();
     questionAsked = generateQuestion(difficulty);
     insertNewQuestion(questionAsked);
+    questionsRemainingMessage();
 }
 
 function setQuestionsInRound() {
@@ -433,8 +435,17 @@ function startPlay() {
     document.querySelector('#answer').focus();
 
     setQuestionsInRound();
+    questionsRemainingMessage();
 }
 
+
+function questionsRemainingMessage() {
+    const text = document.querySelector('#remainingquestions');
+    const num = maxQuestions - currentQuestion + 2;
+    let ansText = num > 1 ? 'answers' : 'answer';
+    text.innerText = `${num} more correct ${ansText} required to complete this round.`;
+    return num;
+}
 
 let questionsInRound = 2;
 let maxQuestions = questionsInRound;
@@ -484,3 +495,5 @@ showMainArticle(false);
 
 // Show set up 
 showSetUp(true);
+
+questionsRemainingMessage();
