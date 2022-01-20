@@ -100,7 +100,8 @@ const listOfPeople = {
         'Thomas',
         'Mazen',
         'Sasha',
-        'Boki'
+        'Boki',
+        'Dragan'
     ],
     femaleNames: [
         'Mira',
@@ -125,7 +126,10 @@ const listOfPeople = {
         'Sue',
         'Martha',
         'Bojana',
-        'Dana'
+        'Dana',
+        'Alma',
+        'Lara',
+        'Claire'
     ],
 
     people: [],
@@ -186,7 +190,7 @@ function randInt(from, to, ...dontCare) {
 
 
 // Generate a random question
-function generateQuestion(diffLevel = 1) {
+function generateQuestion(diffLevel=1) {
     // Generate a random question
     const randPerson = listOfPeople.pickPerson();
     const item = things.pickItem();
@@ -194,13 +198,32 @@ function generateQuestion(diffLevel = 1) {
     const itemPrice = randInt(2, 10);
     const currencyName = 'Dirhams';
 
-    let text = `${randPerson.name} wants to buy some ${item.plural}. `;
-    text += `If each ${item.name} costs ${itemPrice} ${currencyName}, `;
-    text += `how many ${currencyName} does ${randPerson.pronoun()} need `;
-    text += `to buy ${numItems} ${item.plural}?`
+    let question;
+    let answer;
+    switch (diffLevel) {
+        case 1:
+            question = `${randPerson.name} wants to buy some ${item.plural}. `;
+            question += `If each ${item.name} costs ${itemPrice} ${currencyName}, `;
+            question += `how many ${currencyName} does ${randPerson.pronoun()} need `;
+            question += `to buy ${numItems} ${item.plural}?`;
+            answer = itemPrice * numItems;
+            break;
+
+        case 2:
+            question = "Level 2";
+            answer = 2;
+            break;
+
+        case 3:
+            question = "Level 2";
+            answer = 3;
+            break;
+
+        default:
+    }
 
     // Return correct answer
-    return { question: text, answer: itemPrice * numItems };
+    return {question, answer};
 }
 
 
@@ -271,7 +294,8 @@ function checkAnswer() {
             insertCorrectAnswer(questionAsked);
         }
         if (currentQuestion <= maxQuestions) {
-            questionAsked = generateQuestion()
+            setDifficultyLevel();
+            questionAsked = generateQuestion(difficulty)
             insertNewQuestion(questionAsked);
         }
         else {
@@ -291,7 +315,7 @@ function endOfPlay() {
     const inSection = document.querySelector('.questions');
     const p = document.createElement('p');
     p.classList.add('endofplay');
-    let = finalMessage =  `This was the last question of this round. `;
+    let = finalMessage = `This was the last question of this round. `;
     finalMessage += `Your final score is: <span id='finalscore'>${score}%</span>.`;
     p.innerHTML = finalMessage;
     inSection.appendChild(p);
@@ -311,7 +335,7 @@ function endOfPlay() {
     addBigButton();
 }
 
-function addBigButton(text='Continue?') {
+function addBigButton(text = 'Continue?') {
     // Select the paragraph to which the big button will be added
     inSection = document.querySelector('main section:last-of-type p');
 
@@ -340,7 +364,7 @@ function continuePlay() {
     questionParas.removeChild(scoreText);
 
     // enable confirmation button
-    const confButton =  inSection.querySelector('button.bigbutton');
+    const confButton = inSection.querySelector('button.bigbutton');
     confButton.hidden = false;
 
     // show previusly hidden button, answer box and answer label
@@ -356,7 +380,8 @@ function continuePlay() {
     maxQuestions += questionsInRound;
 
     // Insert new question
-    questionAsked = generateQuestion();
+    setDifficultyLevel();
+    questionAsked = generateQuestion(difficulty);
     insertNewQuestion(questionAsked);
 }
 
@@ -366,15 +391,19 @@ function setQuestionsInRound() {
     return questionsInRound;
 }
 
+function setDifficultyLevel() {
+    difficulty = parseInt(document.querySelector('#difficultylevel').value);
+    return difficulty;
+}
 
-function showMainArticle(show=true) {
+function showMainArticle(show = true) {
     // Show/Hide article
     article = document.querySelector('.mathquestions main article');
     article.style.visibility = show ? 'visible' : 'collapse'
     return article;
 }
 
-function showSetUp(show=true) {
+function showSetUp(show = true) {
     // Show/Hide set up box
     aside = document.querySelector('.mathquestions main aside');
     aside.style.visibility = show ? 'visible' : 'collapse'
@@ -386,9 +415,10 @@ function startPlay() {
     showMainArticle(true);
     showSetUp(false);
 
-    // Set answer box focus
-    const answerBox = document.querySelector('#answer');
-    answerBox.focus();
+    setDifficultyLevel();
+    questionAsked = generateQuestion(difficulty);
+    insertNewQuestion(questionAsked);
+    document.querySelector('#answer').focus();
 
     setQuestionsInRound();
 }
@@ -400,13 +430,10 @@ let correctAnswers = 0;
 let wrongAnswers = 0;
 let currentQuestion = 1;
 let questionAsked;
+let difficulty;
 
 if (document.body.classList.contains('mathquestions')) {
-    questionAsked = generateQuestion();
-    insertNewQuestion(questionAsked);
-    document.querySelector('#answer').focus();
-
-    // And hide article initially
+    //Hhide article initially
     showMainArticle(false);
     showSetUp(true);
 }
