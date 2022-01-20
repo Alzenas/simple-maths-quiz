@@ -190,18 +190,20 @@ function randInt(from, to, ...dontCare) {
 
 
 // Generate a random question
-function generateQuestion(diffLevel=1) {
+function generateQuestion(diffLevel = 1) {
     // Generate a random question
-    const randPerson = listOfPeople.pickPerson();
-    const item = things.pickItem();
-    const numItems = randInt(2, 10);
-    const itemPrice = randInt(2, 10);
-    const currencyName = 'Dirhams';
+
 
     let question;
     let answer;
     switch (diffLevel) {
         case 1:
+            const randPerson = listOfPeople.pickPerson();
+            const item = things.pickItem();
+            const numItems = randInt(2, 10);
+            const itemPrice = randInt(2, 10);
+            const currencyName = 'Dirhams';
+
             question = `${randPerson.name} wants to buy some ${item.plural}. `;
             question += `If each ${item.name} costs ${itemPrice} ${currencyName}, `;
             question += `how many ${currencyName} does ${randPerson.pronoun()} need `;
@@ -210,8 +212,17 @@ function generateQuestion(diffLevel=1) {
             break;
 
         case 2:
-            question = "Level 2";
-            answer = 2;
+            const first = randInt(2, 100);
+            const second = randInt(2, 100);
+            const max = Math.max(first, second);
+            const min = Math.min(first, second);
+            const text = [];
+            text.push({ question: `For <span class="equation">X + ${min} = ${max}</span>, what is the value of <span class="equation">X</span>?`, answer: max - min });
+            text.push({ question: `For <span class="equation">${max} - Y = ${min}</span>, what is the value of <span class="equation">Y</span>?`, answer: max - min });
+
+            const rand = randInt(text.length - 1);
+            question = text[rand].question;
+            answer = text[rand].answer;
             break;
 
         case 3:
@@ -223,7 +234,7 @@ function generateQuestion(diffLevel=1) {
     }
 
     // Return correct answer
-    return {question, answer};
+    return { question, answer };
 }
 
 

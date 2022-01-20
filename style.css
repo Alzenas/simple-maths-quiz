@@ -214,3 +214,10 @@ p a {
     font-weight: bold;
     color: darkred;
 }
+
+span.equation {
+    color:#ffb703;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 1em;
+}
