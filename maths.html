@@ -22,8 +22,8 @@
         </nav>
     </header>
     <main>
-        <h1>Play maths!</h1>
         <article>
+            <h1>Play maths!</h1>
             <section class="questions">
                 <p id="topquestion">
                     Here are some simple maths questions. <br>Can you answer them?
@@ -61,13 +61,13 @@
                 </div>
                 <div>
                     <label class="block" for="questionsperround">Questions in each round:</label>
-                    <input id="questionsperround" type="number" min="2" max="20" value="5" name="questions">
+                    <input id="questionsperround" type="number" min="2" max="20" value="5" name="questions" onchange=setQuestionsInRound()>
                 </div>
                 <div>
                     <input id="keepscore" type="checkbox" name="keepscore" value="yes" checked>
                     <label for="keepscore">Keep the score</label>
                 </div>
-                <button type='button' onclick=getQuestionsInRound()>Start</button>
+                <button type='button' onclick=startPlay()>Start</button>
             </form>
         </aside>
 

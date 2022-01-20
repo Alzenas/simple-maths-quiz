@@ -269,8 +269,9 @@ function endOfPlay() {
     answerLabel = document.querySelector('label[for="answer"]');
     answerButton.hidden = true;
     answerBox.hidden = true;
-    answerLabel.hidden = true;
-    answerLabel.classList.toggle('block');
+    answerLabel.style.visibility = 'collapse';
+    // answerLabel.hidden = true;
+    // answerLabel.classList.toggle('block');
 
     // Add new button for continuation of play, 
     // to ask the user if they want to continue
@@ -313,8 +314,9 @@ function continuePlay() {
     answerBox = document.querySelector('#answer');
     answerLabel = document.querySelector('label[for="answer"]');
     answerBox.hidden = false;
-    answerLabel.hidden = false;
-    answerLabel.classList.toggle('block');
+    answerLabel.style.visibility = 'visible';
+    // answerLabel.hidden = false;
+    // answerLabel.classList.toggle('block');
 
 
     // Set counters 
@@ -325,19 +327,46 @@ function continuePlay() {
     insertNewQuestion(questionAsked);
 }
 
-function getQuestionsInRound() {
-    qInRound = parseInt(document.querySelector('#questionsperround').value);
-    return qInRound;
+function setQuestionsInRound() {
+    questionsInRound = parseInt(document.querySelector('#questionsperround').value);
+    return questionsInRound;
 }
 
-let questionsInRound = getQuestionsInRound();
+
+function showMainArticle(show=true) {
+    // Show/Hide article
+    article = document.querySelector('.mathquestions main article');
+    article.style.visibility = show ? 'visible' : 'collapse'
+    return article;
+}
+
+function showSetUp(show=true) {
+    // Show/Hide set up box
+    aside = document.querySelector('.mathquestions main aside');
+    aside.style.visibility = show ? 'visible' : 'collapse'
+    return aside;
+}
+
+
+function startPlay() {
+    showMainArticle(true);
+    showSetUp(false);
+}
+
+
+let questionsInRound = 2;
 let maxQuestions = questionsInRound;
 let correctAnswers = 0;
 let wrongAnswers = 0;
 let currentQuestion = 1;
-let questionAsked = generateQuestion();
+let questionAsked;
 
 if (document.body.classList.contains('mathquestions')) {
+    questionAsked = generateQuestion();
     insertNewQuestion(questionAsked);
     document.querySelector('#answer').focus();
+
+    // And hide article initially
+    showMainArticle(false);
+    showSetUp(true);
 }

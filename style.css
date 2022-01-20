@@ -10,13 +10,19 @@ main {
     margin: 2rem;
 }
 
-/* Set positioning of first section in main */
+/* Set positioning of first section in main
 main section:first-of-type {
+    position: relative;
+} */
+
+main {
     position: relative;
 }
 
 main article, main aside {
-    display: inline-block;
+    visibility: collapse;
+    position: absolute;
+    top: 0px;
 }
 
 main article {
@@ -136,7 +142,6 @@ label[for="answer"] {
     margin: 3rem 1rem 1rem;
 }
 
-/* TODO: Need to change these to classes rather than IDs */
 #topquestion, 
 #question, 
 #answer,
