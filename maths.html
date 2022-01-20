@@ -35,8 +35,8 @@
                 <p>
                     <label class="block" for="answer">Place your answer in the box below.</label>
                     <input id="answer" type="number" min="0">
-                    <button class="bigbutton" onclick=checkAnswer()>Confirm</button>
-                    <!-- New big button (for continuation) is inserted here -->
+                    <button id="confirmanswer" class="bigbutton">Answer</button>
+                    <!-- New big button (for continuation) is inserted hereafter -->
                 </p>
             </section>
         </article>
@@ -53,7 +53,7 @@
                 </div>
                 <div>
                     <label class="block" for="difficultylevel">Select difficulty level: </label>
-                    <select name="level" id="difficultylevel" onchange=setDifficultyLevel() required>
+                    <select name="level" id="difficultylevel" required>
                         <option name="level" value="">-- Select Difficulty --</option>
                         <option name="level" value="1" selected>Level 1</option>
                         <option name="level" value="2">Level 2</option>
@@ -62,13 +62,13 @@
                 </div>
                 <div>
                     <label class="block" for="questionsperround">Correct answers required to complete the round:</label>
-                    <input id="questionsperround" type="number" min="2" max="50" value="20" name="questions" onchange=setQuestionsInRound()>
+                    <input id="questionsperround" type="number" min="2" max="50" value="20" name="questions">
                 </div>
                 <div>
                     <input id="keepscore" type="checkbox" name="keepscore" value="yes" checked>
                     <label for="keepscore">Keep the score</label>
                 </div>
-                <button type='button' title="Apply settings and start play" onclick=startPlay()>Start</button>
+                <button id="startbutton" type='button' title="Apply settings and start play">Start</button>
             </form>
         </aside>
 

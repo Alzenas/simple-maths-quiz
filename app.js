@@ -14,6 +14,7 @@ class thing {
     }
 }
 
+
 const things = {
     items: [
         'tomato, tomatoes',
@@ -162,9 +163,9 @@ listOfPeople.initialisePeople();
 listOfPeople.shuffleNames();
 
 
-/****************************
-    Define functions
-*****************************/
+/****************************/
+/*   Define functions       */
+/****************************/
 function randInt(from, to, ...dontCare) {
     // Generates a random integer 
     // between 'from' and 'to' (inclusive)
@@ -191,11 +192,10 @@ function randInt(from, to, ...dontCare) {
 
 // Generate a random question
 function generateQuestion(diffLevel = 1) {
-    // Generate a random question
-
-
+    // Generate a random questions
     let question;
     let answer;
+
     switch (diffLevel) {
         case 1:
             const randPerson = listOfPeople.pickPerson();
@@ -359,7 +359,7 @@ function addBigButton(text = 'Continue?') {
     newButton.focus();
 
     // Define onclick action for the button
-    newButton.setAttribute('onclick', "continuePlay()");
+    newButton.addEventListener('click', () => continuePlay());
 }
 
 
@@ -367,6 +367,7 @@ function continuePlay() {
     // remove continuation button
     const inSection = document.querySelector('main section:last-of-type p');
     const contButton = document.querySelector('#continuebutton');
+    contButton.removeEventListener('click', () => continuePlay());
     inSection.removeChild(contButton);
 
     // Remove last score details
@@ -443,8 +444,43 @@ let currentQuestion = 1;
 let questionAsked;
 let difficulty;
 
-if (document.body.classList.contains('mathquestions')) {
-    //Hhide article initially
-    showMainArticle(false);
-    showSetUp(true);
-}
+/****************************** */
+/* Set event listeners/handlers */
+/****************************** */
+
+// For when difficulty level is changed
+diffLevelDropDown = document.querySelector('#difficultylevel');
+diffLevelDropDown.addEventListener('change', () =>  setDifficultyLevel());
+
+// For when questions per round is changed
+questPerRoundNumber = document.querySelector('#questionsperround');
+questPerRoundNumber.addEventListener('change', () => setQuestionsInRound());
+
+// When on-page start button is clicked
+startButton = document.querySelector('#startbutton');
+startButton.addEventListener('click', () => startPlay());
+
+// When Enter is pressed after user inserts the answer
+answerInput = document.querySelector('#answer');
+answerInput.addEventListener('keypress', (key) => {
+    // If either Enter or Space are pressed, then click the button
+    if (['enter', 'space'].indexOf(key.code.toLowerCase()) != -1) {
+        // click answerButton
+        answerButton.click();
+    }
+});
+
+// When confirm answer button is pressed
+answerButton = document.querySelector('#confirmanswer');
+answerButton.addEventListener('click', () => checkAnswer());
+
+
+/***************************************/
+/* Stuff to run upon loading the page  */
+/***************************************/
+
+// Hide main article initially
+showMainArticle(false);
+
+// Show set up 
+showSetUp(true);
