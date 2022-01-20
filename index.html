@@ -27,7 +27,6 @@
         <section>
 
             <!-- Introduction and instructions -->
-            <article>
                 <h2>Introduction</h2>
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis cumque illum amet aspernatur quis
                     error ab
@@ -57,36 +56,6 @@
                     nemo, animi repellat. Architecto beatae rerum, in ratione sunt libero iste neque veniam
                     perspiciatis, modi
                     quas.</p>
-            </article>
-
-            <!-- Game settings in <aside> -->
-            <aside>
-                <h2>Settings</h2>
-                <form action="">
-                    <div>
-                        <label class="block" for="playername">Player's Name: </label>
-                        <input id="playername" type="text" name="player" placeholder="Player" minlength="3" maxlength="20" required>
-                    </div>
-                    <div>
-                        <label class="block" for="difficultylevel">Select difficulty level: </label>
-                        <select name="level" id="difficultylevel" required>
-                            <option name="level" value="">-- Select Difficulty --</option>
-                            <option name="level" value="1" selected>Level 1</option>
-                            <option name="level" value="2" disabled>Level 2 (not implemented)</option>
-                            <option name="level" value="3" disabled>Level 3 (not implemented)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block" for="questionsperround">Questions in each round:</label>
-                        <input id="questionsperround" type="number" min="2" max="20" value="5" name="questions">
-                    </div>
-                    <div>
-                        <input id="keepscore" type="checkbox" name="keepscore" value="yes" checked>
-                        <label for="keepscore">Keep the score</label>
-                    </div>
-                    <button onclick=getQuestionsInRound()>Start</button>
-                </form>
-            </aside>
         </section>
     </main>
 
