@@ -202,3 +202,13 @@ label[for="answer"] {
     font-weight: bold;
     margin-bottom: 1em;
 }
+
+li>p {
+    color:#126782;
+}
+
+p a {
+    text-decoration: none;
+    font-weight: bold;
+    color: darkred;
+}
