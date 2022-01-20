@@ -88,7 +88,19 @@ const listOfPeople = {
         'Akram',
         'Walid',
         'Amir',
-        'Tata'
+        'Tata',
+        'Leo',
+        'Rafi',
+        'Themmis',
+        'Jovan',
+        'Igor',
+        'Marko',
+        'Aleksandar',
+        'Anthony',
+        'Thomas',
+        'Mazen',
+        'Sasha',
+        'Boki'
     ],
     femaleNames: [
         'Mira',
@@ -104,7 +116,16 @@ const listOfPeople = {
         'Tara',
         'Sara',
         'Emmy',
-        'Natasha'
+        'Natasha',
+        'Baka',
+        'Sofija',
+        'Sophia',
+        'Ivana',
+        'Layla',
+        'Sue',
+        'Martha',
+        'Bojana',
+        'Dana'
     ],
 
     people: [],
