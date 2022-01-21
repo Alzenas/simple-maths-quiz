@@ -3,9 +3,9 @@
     |   Year 2 Maths: Groups    |
     \***************************/
 
-/****************************
-    Define objects
-*****************************/
+/*******************************/
+/*    Define objects           */
+/*******************************/
 
 class thing {
     constructor(name, plural) {
@@ -201,7 +201,7 @@ function generateQuestion(diffLevel = 1) {
     let question;
     let answer;
 
-    let  minMultiplier;
+    let minMultiplier;
     let maxMultiplier;
     let upperValue;
     let lowerValue;
@@ -279,7 +279,7 @@ function generateQuestion(diffLevel = 1) {
 // Mark last question as correct or wrong based on arguments passed
 function markLastQuestion(statusId = 'correct') {
     // Select last paragraph in .qcontainer section:
-    question = document.querySelector('#question')       
+    question = document.querySelector('#question')
     question.classList.add(statusId);
     question.id = '';
 }
@@ -453,16 +453,25 @@ function showMainArticle(show = true) {
     // Show/Hide article
     article = document.querySelector('.qbox');
     article.style.visibility = show ? 'visible' : 'collapse'
+
+    // Set the order of items in flex container if this item is shown
+    const container = document.querySelector('main');
+    container.style.flexDirection = show ? 'column' : 'column-reverse';
+
     return article;
 }
 
 function showSetUp(show = true) {
     // Show/Hide set up box
-    aside = document.querySelector('.sbox');
+    const aside = document.querySelector('.sbox');
     aside.style.visibility = show ? 'visible' : 'collapse'
 
-    if(show) {
-        // focus on player's name
+    // Set the order of items in flex container if this item is shown
+    const container = document.querySelector('main');
+    container.style.flexDirection = !show ? 'column' : 'column-reverse';
+
+    // focus on player's name
+    if (show) {
         aside.querySelector('#playername').focus();
     }
     return aside;
