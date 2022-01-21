@@ -15,7 +15,15 @@ body {
 }
 
 main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     margin: 2rem;
+}
+
+main h1 {
+    font-size: 1.7rem;
 }
 
 .quiz {
@@ -41,6 +49,7 @@ main {
 }
 
 .sbox form label {
+    display: block;
     font-size: 0.9em;
     margin-bottom: 0.25em;
     width: 100%;
@@ -63,6 +72,7 @@ main {
 }
 
 .sbox form label[for="keepscore"], #keepscore {
+    display: inline;
     vertical-align:-webkit-baseline-middle;
 }
 
@@ -70,13 +80,9 @@ main {
     padding: 0.25em 0em 1em;
 }
 
-/* Set elements to display on their own lines */
-.block {
-    display: block;
-}
-
 p {
     text-align: justify;
+    max-width: 600px;
 }
 
 p::selection {
@@ -138,10 +144,16 @@ button:active, .mainnav a:active {
 }
 
 label[for="answer"] {
+    display: block;
+    text-align: left;
     color: #706677;
-    font-size: 1.2rem;
-    margin: 3rem 1rem 1rem;
+    font-size: 1rem;
+    margin: 3rem 0rem 1rem;
 }
+
+#remainingquestions {
+    font-weight: bold;
+} 
 
 #topquestion, 
 #question, 
@@ -157,6 +169,7 @@ label[for="answer"] {
 }
 
 #topquestion {
+    text-align: left;
     background-color: #fd9e02;
 }
 

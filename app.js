@@ -495,8 +495,8 @@ function startPlay() {
 function questionsRemainingMessage() {
     const text = document.querySelector('#remainingquestions');
     const num = maxQuestions - currentQuestion + 2;
-    let ansText = num > 1 ? 'answers' : 'answer';
-    text.innerText = `${num} more correct ${ansText} required to complete this round.`;
+    let plural = num > 1 ? 's' : '';
+    text.innerText = `Answer ${num} more question${plural} correctly to complete this round.`;
     return num;
 }
 

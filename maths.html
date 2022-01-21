@@ -35,8 +35,7 @@
             </section>
             <section>
                 <p>
-                    <label class="block" for="answer">Place your answer in the box below. <span
-                            id="remainingquestions"></span></label>
+                    <label for="answer">Place your answer in the box below.<br> <span id="remainingquestions"></span></label>
                     <input id="answer" type="number" min="0">
                     <button id="confirmanswer" class="bigbutton">Answer</button>
                     <!-- New big button (for continuation) is inserted hereafter -->
@@ -50,22 +49,22 @@
             <h2>Settings</h2>
             <form action="">
                 <div class="formitem">
-                    <label class="block" for="playername">Player's Name: </label>
+                    <label for="playername">Player's Name: </label>
                     <input id="playername" type="text" name="player" placeholder="Player" minlength="3" maxlength="20"
                         required>
                 </div>
                 <div class="formitem">
-                    <label class="block" for="difficultylevel">Quiz type:</label>
+                    <label for="difficultylevel">Quiz type:</label>
                     <select name="level" id="difficultylevel" required>
                         <option name="level" value="" disabled>-- Select Quiz Type --</option>
-                            <option name="level" value="1" selected>Comprehension - Level 1 (Multiplication)</option>
-                            <option name="level" value="2">Equations - Level 1 (Addition/Subtraction)</option>
-                            <option name="level" value="3">Equations - Level 2 (Addition/Subtraction)</option>
-                            <option name="level" value="mixed">Mixed Challenge</option>
+                        <option name="level" value="1" selected>Comprehension - Level 1 (Multiplication)</option>
+                        <option name="level" value="2">Equations - Level 1 (Addition/Subtraction)</option>
+                        <option name="level" value="3">Equations - Level 2 (Addition/Subtraction)</option>
+                        <option name="level" value="mixed">Mixed Challenge</option>
                     </select>
                 </div>
                 <div class="formitem">
-                    <label class="block" for="questionsperround">Correct answers required to complete the round:</label>
+                    <label for="questionsperround">Correct answers required to complete the round:</label>
                     <input id="questionsperround" type="number" min="2" max="50" value="20" name="questions">
                 </div>
                 <div class="formitem">
