@@ -25,7 +25,12 @@ main {
 }
 
 .sbox {
+<<<<<<< HEAD
     margin: auto;    
+=======
+    margin: auto;
+    flex-grow: 0;
+>>>>>>> fix-style
     max-width: 350px;
     background-color: #eee;
     padding: 1em 0em 2rem 2rem;
