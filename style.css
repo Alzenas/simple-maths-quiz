@@ -8,26 +8,24 @@ body {
 
 main {
     margin: 2rem;
-}
-
-main {
     position: relative;
 }
 
-main article, main aside {
+.qbox {
     margin: auto;
     visibility: collapse;
     position: absolute;
     top: 0px;
-}
-
-main article {
     width: 60%;
     min-width: 400px;
     padding-right: 2rem;
 }
 
-main aside {
+.sbox {
+    margin: auto;
+    visibility: collapse;
+    position: absolute;
+    top: 0px;
     background-color: #eee;
     top: 0;
     padding-left: 2rem;
@@ -36,13 +34,13 @@ main aside {
     filter: drop-shadow(0em 0em 1em rgba(0, 0, 0, 0.5));
 }
 
-main aside form label {
+.sbox form label {
     margin-bottom: 0.25em;
     padding-right: 2rem;
     max-width: 18em;
 }
 
-main aside input, main aside select {
+.sbox input, #difficultylevel {
     margin-right: 2rem;
     padding: 0.25em;
 }
@@ -56,12 +54,11 @@ main aside input, main aside select {
     width: 20em;
 }
 
-main aside form div {
+.formitem {
     padding: 0.25em 0em 1em;
-    /* top right bottom*/
 }
 
-main aside form div:first-of-type {
+.formitem:first-of-type {
     padding-top: 0;
 }
 

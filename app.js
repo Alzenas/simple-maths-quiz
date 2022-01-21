@@ -278,7 +278,7 @@ function generateQuestion(diffLevel = 1) {
 
 // Mark last question as correct or wrong based on arguments passed
 function markLastQuestion(statusId = 'correct') {
-    // Select last paragraph in .questions section:
+    // Select last paragraph in .qcontainer section:
     question = document.querySelector('#question')       
     question.classList.add(statusId);
     question.id = '';
@@ -286,7 +286,7 @@ function markLastQuestion(statusId = 'correct') {
 
 // Insert new question into the document
 function insertNewQuestion({ question, answer }, selectorId = 'question') {
-    const inSection = document.querySelector('.questions');
+    const inSection = document.querySelector('.qcontainer');
     const p = document.createElement('p');
     p.id = selectorId;
     p.innerHTML = `<span class="questiontitle">Question ${currentQuestion}.</span>` + question;
@@ -304,7 +304,7 @@ function insertNewQuestion({ question, answer }, selectorId = 'question') {
 
 // Insert a correct answer into document model
 function insertCorrectAnswer({ question, answer }, selectorId = 'correctanswer') {
-    const inSection = document.querySelector('.questions');
+    const inSection = document.querySelector('.qcontainer');
     const p = document.createElement('p');
     p.classList.add(selectorId);
     p.innerHTML = `<span class='correctiontext'>${getAnswerFromHTML()}</span> is not a correct answer. The correct answer was: <span class='correctiontext'>${answer}</span>.`;
@@ -362,7 +362,7 @@ function checkAnswer() {
 function endOfPlay() {
     // Prepare a message
     const score = Math.round(100 * (correctAnswers / maxQuestions), 0);
-    const inSection = document.querySelector('.questions');
+    const inSection = document.querySelector('.qcontainer');
     const p = document.createElement('p');
     p.classList.add('endofplay');
     let = finalMessage = `This was the last question of this round. `;
@@ -377,8 +377,6 @@ function endOfPlay() {
     answerButton.hidden = true;
     answerBox.hidden = true;
     answerLabel.style.visibility = 'collapse';
-    // answerLabel.hidden = true;
-    // answerLabel.classList.toggle('block');
 
     // Add new button for continuation of play, 
     // to ask the user if they want to continue
@@ -410,8 +408,8 @@ function continuePlay() {
     inSection.removeChild(contButton);
 
     // Remove last score details
-    const scoreText = document.querySelector('main article p.endofplay');
-    const questionParas = document.querySelector('main article .questions')
+    const scoreText = document.querySelector('.qbox p.endofplay');
+    const questionParas = document.querySelector('.qcontainer')
     questionParas.removeChild(scoreText);
 
     // enable confirmation button
@@ -423,9 +421,6 @@ function continuePlay() {
     answerLabel = document.querySelector('label[for="answer"]');
     answerBox.hidden = false;
     answerLabel.style.visibility = 'visible';
-    // answerLabel.hidden = false;
-    // answerLabel.classList.toggle('block');
-
 
     // Set counters 
     maxQuestions += questionsInRound;
@@ -456,14 +451,14 @@ function setDifficultyLevel() {
 
 function showMainArticle(show = true) {
     // Show/Hide article
-    article = document.querySelector('main article');
+    article = document.querySelector('.qbox');
     article.style.visibility = show ? 'visible' : 'collapse'
     return article;
 }
 
 function showSetUp(show = true) {
     // Show/Hide set up box
-    aside = document.querySelector('main aside');
+    aside = document.querySelector('.sbox');
     aside.style.visibility = show ? 'visible' : 'collapse'
     return aside;
 }

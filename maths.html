@@ -24,9 +24,9 @@
         </nav>
     </header>
     <main>
-        <article>
+        <article class="qbox">
             <h1>Play maths!</h1>
-            <section class="questions">
+            <section class="qcontainer">
                 <p id="topquestion">
                     Here are some simple maths questions. <br>Can you answer them?
                 </p>
@@ -45,15 +45,15 @@
 
 
         <!-- Game settings in <aside> -->
-        <aside>
+        <aside class="sbox">
             <h2>Settings</h2>
             <form action="">
-                <div>
+                <div class="formitem">
                     <label class="block" for="playername">Player's Name: </label>
                     <input id="playername" type="text" name="player" placeholder="Player" minlength="3" maxlength="20"
                         required>
                 </div>
-                <div>
+                <div class="formitem">
                     <label class="block" for="difficultylevel">Select difficulty level: </label>
                     <select name="level" id="difficultylevel" required>
                         <option name="level" value="" disabled>-- Select Difficulty --</option>
@@ -63,11 +63,11 @@
                             <option name="level" value="mixed">Mixed Challenge</option>
                     </select>
                 </div>
-                <div>
+                <div class="formitem">
                     <label class="block" for="questionsperround">Correct answers required to complete the round:</label>
                     <input id="questionsperround" type="number" min="2" max="50" value="20" name="questions">
                 </div>
-                <div>
+                <div class="formitem">
                     <input id="keepscore" type="checkbox" name="keepscore" value="yes" checked>
                     <label for="keepscore">Keep the score</label>
                 </div>
