@@ -6,12 +6,19 @@ html {
     font-family: 'Roboto', sans-serif;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
 }
 
 main {
     margin: 2rem;
+}
+
+.quiz {
     display: flex;
     flex-direction: column-reverse;
 }
@@ -34,32 +41,34 @@ main {
 }
 
 .sbox form label {
+    font-size: 0.9em;
     margin-bottom: 0.25em;
-    padding-right: 2rem;
-    max-width: 18em;
-}
-
-.sbox input, #difficultylevel {
-    padding: 0.25em;
-}
-
-/* Distance between tick and label */
-#keepscore {
-    margin-right: 0.5em;
+    width: 100%;
 }
 
 #playername {
-    width: 20em;
+    padding: 0.25em;
+    width: 100%;
+}
+
+#difficultylevel {
+    padding: 0.25em;
+    width: 100%;
 }
 
 #questionsperround {
+    padding: 0.25em;
+    width: 25%;
     text-align: center;
+}
+
+.sbox form label[for="keepscore"], #keepscore {
+    vertical-align:-webkit-baseline-middle;
 }
 
 .formitem {
     padding: 0.25em 0em 1em;
 }
-
 
 /* Set elements to display on their own lines */
 .block {
