@@ -25,15 +25,10 @@ main {
 }
 
 .sbox {
-<<<<<<< HEAD
     margin: auto;    
-=======
-    margin: auto;
-    flex-grow: 0;
->>>>>>> fix-style
     max-width: 350px;
     background-color: #eee;
-    padding: 1em 0em 2rem 2rem;
+    padding: 1rem 2rem 2rem 2rem;
     border-radius: 2em;
     filter: drop-shadow(0em 0em 1em rgba(0, 0, 0, 0.5));
 }
@@ -55,6 +50,10 @@ main {
 
 #playername {
     width: 20em;
+}
+
+#questionsperround {
+    text-align: center;
 }
 
 .formitem {
