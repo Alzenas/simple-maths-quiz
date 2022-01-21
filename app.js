@@ -460,6 +460,11 @@ function showSetUp(show = true) {
     // Show/Hide set up box
     aside = document.querySelector('.sbox');
     aside.style.visibility = show ? 'visible' : 'collapse'
+
+    if(show) {
+        // focus on player's name
+        aside.querySelector('#playername').focus();
+    }
     return aside;
 }
 
