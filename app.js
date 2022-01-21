@@ -289,7 +289,7 @@ function insertNewQuestion({ question, answer }, selectorId = 'question') {
     const inSection = document.querySelector('.qcontainer');
     const p = document.createElement('p');
     p.id = selectorId;
-    p.innerHTML = `<span class="questiontitle">Question ${currentQuestion}.</span>` + question;
+    p.innerHTML = `<span class="question-title">Question ${currentQuestion}.</span>` + question;
     inSection.appendChild(p);
 
     const answerBox = document.querySelector('#answer');
@@ -303,11 +303,11 @@ function insertNewQuestion({ question, answer }, selectorId = 'question') {
 
 
 // Insert a correct answer into document model
-function insertCorrectAnswer({ question, answer }, selectorId = 'correctanswer') {
+function insertCorrectAnswer({ question, answer }, selectorId = 'correct-answer') {
     const inSection = document.querySelector('.qcontainer');
     const p = document.createElement('p');
     p.classList.add(selectorId);
-    p.innerHTML = `<span class='correctiontext'>${getAnswerFromHTML()}</span> is not a correct answer. The correct answer was: <span class='correctiontext'>${answer}</span>.`;
+    p.innerHTML = `<span class='correction-text'>${getAnswerFromHTML()}</span> is not a correct answer. The correct answer was: <span class='correction-text'>${answer}</span>.`;
     inSection.appendChild(p);
 }
 
@@ -364,14 +364,14 @@ function endOfPlay() {
     const score = Math.round(100 * (correctAnswers / maxQuestions), 0);
     const inSection = document.querySelector('.qcontainer');
     const p = document.createElement('p');
-    p.classList.add('endofplay');
+    p.classList.add('end-of-play');
     let = finalMessage = `This was the last question of this round. `;
-    finalMessage += `Your final score is: <span id='finalscore'>${score}%</span>.`;
+    finalMessage += `Your final score is: <span id='final-score'>${score}%</span>.`;
     p.innerHTML = finalMessage;
     inSection.appendChild(p);
 
     // Disable current button, answer box and answer label
-    answerButton = document.querySelector('button.bigbutton');
+    answerButton = document.querySelector('button.big-button');
     answerBox = document.querySelector('#answer');
     answerLabel = document.querySelector('label[for="answer"]');
     answerButton.hidden = true;
@@ -389,7 +389,7 @@ function addBigButton(text = 'Continue?') {
 
     // create a new big button
     const newButton = document.createElement('button');
-    newButton.classList.add('bigbutton');
+    newButton.classList.add('big-button');
     newButton.id = 'continuebutton'
     newButton.innerText = text;
     inSection.appendChild(newButton);
@@ -408,12 +408,12 @@ function continuePlay() {
     inSection.removeChild(contButton);
 
     // Remove last score details
-    const scoreText = document.querySelector('.qbox p.endofplay');
+    const scoreText = document.querySelector('.questions-box p.end-of-play');
     const questionParas = document.querySelector('.qcontainer')
     questionParas.removeChild(scoreText);
 
     // enable confirmation button
-    const confButton = inSection.querySelector('button.bigbutton');
+    const confButton = inSection.querySelector('button.big-button');
     confButton.hidden = false;
 
     // show previusly hidden button, answer box and answer label
@@ -433,13 +433,13 @@ function continuePlay() {
 }
 
 function setQuestionsInRound() {
-    questionsInRound = parseInt(document.querySelector('#questionsperround').value);
+    questionsInRound = parseInt(document.querySelector('#questions-per-round').value);
     maxQuestions = questionsInRound;
     return questionsInRound;
 }
 
 function setDifficultyLevel() {
-    difficulty = document.querySelector('#difficultylevel').value;
+    difficulty = document.querySelector('#difficulty-level').value;
     if (difficulty != 'mixed') {
         difficulty = parseInt(difficulty);
         return difficulty;
@@ -451,7 +451,7 @@ function setDifficultyLevel() {
 
 function showMainArticle(show = true) {
     // Show/Hide article
-    article = document.querySelector('.qbox');
+    article = document.querySelector('.questions-box');
     article.style.visibility = show ? 'visible' : 'collapse'
 
     // Set the order of items in flex container if this item is shown
@@ -463,7 +463,7 @@ function showMainArticle(show = true) {
 
 function showSetUp(show = true) {
     // Show/Hide set up box
-    const aside = document.querySelector('.sbox');
+    const aside = document.querySelector('.settings-box');
     aside.style.visibility = show ? 'visible' : 'collapse'
 
     // Set the order of items in flex container if this item is shown
@@ -472,7 +472,7 @@ function showSetUp(show = true) {
 
     // focus on player's name
     if (show) {
-        aside.querySelector('#playername').focus();
+        aside.querySelector('#player-name').focus();
     }
     return aside;
 }
@@ -493,7 +493,7 @@ function startPlay() {
 
 
 function questionsRemainingMessage() {
-    const text = document.querySelector('#remainingquestions');
+    const text = document.querySelector('#remaining-questions');
     const num = maxQuestions - currentQuestion + 2;
     let plural = num > 1 ? 's' : '';
     text.innerText = `Answer ${num} more question${plural} correctly to complete this round.`;
@@ -513,11 +513,11 @@ let difficulty;
 /****************************** */
 
 // For when difficulty level is changed
-diffLevelDropDown = document.querySelector('#difficultylevel');
+diffLevelDropDown = document.querySelector('#difficulty-level');
 diffLevelDropDown.addEventListener('change', () => setDifficultyLevel());
 
 // For when questions per round is changed
-questPerRoundNumber = document.querySelector('#questionsperround');
+questPerRoundNumber = document.querySelector('#questions-per-round');
 questPerRoundNumber.addEventListener('change', () => setQuestionsInRound());
 
 // When on-page start button is clicked
