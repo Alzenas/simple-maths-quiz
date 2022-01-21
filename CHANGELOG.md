@@ -1,6 +1,8 @@
-# Changelog
+## [Current State] (to date)
 
-## [Unreleased] (to date)
+## [v0.0.4] (21 January 2022)
+### Fixed
+- Styling
 
 ## [v0.0.3] (20 January 2022)
 ### Added
@@ -20,7 +22,8 @@
 - Initial commit:
 
 
-[Unreleased]: HEAD
-[v0.0.3]: 84feaba
-[v0.0.2]: f816a1f
-[v0.0.1]: 29b3ce4
+[Current State]: https://github.com/Alzenas/simple-maths-quiz/compare/HEAD..v0.0.4
+[v0.0.4]: https://github.com/Alzenas/simple-maths-quiz/compare/v0.0.3..v0.0.4
+[v0.0.3]: https://github.com/Alzenas/simple-maths-quiz/compare/v0.0.2..v0.0.3
+[v0.0.2]: https://github.com/Alzenas/simple-maths-quiz/compare/v0.0.2..v0.0.1
+[v0.0.1]: https://github.com/Alzenas/simple-maths-quiz/releases/tag/v0.0.1
