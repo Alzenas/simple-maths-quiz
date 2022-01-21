@@ -456,14 +456,14 @@ function setDifficultyLevel() {
 
 function showMainArticle(show = true) {
     // Show/Hide article
-    article = document.querySelector('.mathquestions main article');
+    article = document.querySelector('main article');
     article.style.visibility = show ? 'visible' : 'collapse'
     return article;
 }
 
 function showSetUp(show = true) {
     // Show/Hide set up box
-    aside = document.querySelector('.mathquestions main aside');
+    aside = document.querySelector('main aside');
     aside.style.visibility = show ? 'visible' : 'collapse'
     return aside;
 }
