@@ -590,8 +590,9 @@ settingsForm.addEventListener('submit', (evnt) => {
     evnt.preventDefault();
     // Update quizForm dictionary
     for (let key in quizForm) {
-        let target = document.querySelector(key);
-        quizForm[key] = key === '#keep-score' ? target.checked : target.value;
+        const target = document.querySelector(key);
+        const condition = target.type === 'checkbox'; 
+        quizForm[key] = condition ? target.checked : target.value;
     }
     // begin
     startPlay();
