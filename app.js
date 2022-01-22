@@ -223,24 +223,56 @@ function generateQuestion(quizType = 1) {
     let max;
     let text = [];
 
+    let numItems;
+    let itemPrice;
+    let randPerson;
+    let item; 
+    let currencyName;
+
     switch (quizType) {
         case 1:
             minMultiplier = 2;  // Given as a variable for future control
             maxMultiplier = 10;  // Given as a variable for future control
-            const numItems = randInt(minMultiplier, maxMultiplier);
-            const itemPrice = randInt(minMultiplier, maxMultiplier);
-            const randPerson = listOfPeople.pickPerson();
-            const item = things.pickItem();
-            const currencyName = 'Dirhams';
+            numItems = randInt(minMultiplier, maxMultiplier);
+            itemPrice = randInt(minMultiplier, maxMultiplier);
+            randPerson = listOfPeople.pickPerson();
+            item = things.pickItem();
+            currencyName = 'Dirhams';
 
             question = `${randPerson.name} wants to buy some ${item.plural}. `;
             question += `If each ${item.name} costs ${itemPrice} ${currencyName}, `;
             question += `how many ${currencyName} does ${randPerson.pronoun()} need `;
             question += `to buy ${numItems} ${item.plural}?`;
+
+            // Add a hint
+            question += `<p class="hint">HINT: ${numItems}&nbsp;&times;&nbsp;${itemPrice} (${numItems} multiplied by ${itemPrice})</p>`;
+
             answer = itemPrice * numItems;
             break;
 
         case 2:
+            minMultiplier = 2;  // Given as a variable for future control
+            maxMultiplier = 10;  // Given as a variable for future control
+            numItems = randInt(minMultiplier, maxMultiplier);
+            itemPrice = randInt(minMultiplier, maxMultiplier);
+            randPerson = listOfPeople.pickPerson();
+            item = things.pickItem();
+            currencyName = 'Dirhams';
+
+            const total = itemPrice * numItems;
+
+            question = `${randPerson.name} has ${numItems} ${item.plural}, `;
+            question += `for which ${randPerson.pronoun()} paid ${total} `;
+            question += `${currencyName} in total. `;
+            question += `What is the price (in ${currencyName}), of each ${item.name}?`;
+
+            // Add a hint
+            question += `<p class="hint">HINT: <br>How many ${numItems}\'s are there in a ${total}? <br>In other words, what is ${total} divided by ${numItems}? <br>Or, what is the result of ${total} &div; ${numItems}?</p>`;
+
+            answer = itemPrice;
+            break;
+
+        case 3:
             upperValue = 50;
             lowerValue = 2;
             first = randInt(lowerValue, upperValue);
@@ -248,19 +280,19 @@ function generateQuestion(quizType = 1) {
             max = Math.max(first, second);
             min = Math.min(first, second);
             text = [];
-            text.push({ question: `If we take that <span class="equation">X + ${min} = ${max},</span> which value of <span class="equation">X</span> would satisfy the equation? <p class="hint">(HINT: Which number do you need to add to ${min}, so that the final result is ${max}?)</p>`, answer: max - min });
-            text.push({ question: `Given that <span class="equation">${max} - X = ${min},</span> which value of <span class="equation">X</span> would balance the equation? <p class="hint">(HINT: Which value needs to be subtracted from ${max} so that the final result is ${min}?)</p>`, answer: max - min });
-            text.push({ question: `What is the value of <span class="equation">X</span> in the equation below? <p><span class="equation">${max} - ${min} = X</span></p><p class="hint">(HINT: Subtract ${min} from ${max} to get the answer.)</p>`, answer: max - min });
+            text.push({ question: `If we take that <span class="equation">X + ${min} = ${max},</span> which value of <span class="equation">X</span> would satisfy the equation? <p class="hint">HINT: <br>Which number do you need to add to ${min}, so that the final result is ${max}?</p>`, answer: max - min });
+            text.push({ question: `Given that <span class="equation">${max} - X = ${min},</span> which value of <span class="equation">X</span> would balance the equation? <p class="hint">HINT: <br>Which value needs to be subtracted from ${max} so that the final result is ${min}?</p>`, answer: max - min });
+            text.push({ question: `What is the value of <span class="equation">X</span> in the equation below? <p><span class="equation">${max} - ${min} = X</span></p><p class="hint">HINT: <br>Subtract ${min} from ${max} to get the answer.</p>`, answer: max - min });
             text.push({
                 question: `What is the value of <span class="equation">X</span> in the equation below?<p class="equation">${upperValue - max} + ${min} = X</p>
-            <p class="hint">(HINT: Adding the numbers together would give you the result.)</p>`, answer: (upperValue - max) + min
+            <p class="hint">HINT: <br>Adding the numbers together would give you the result.</p>`, answer: (upperValue - max) + min
             });
 
             // Destructure
             ({ question, answer } = choice(text));
             break;
 
-        case 3:
+        case 4:
             upperValue = 100;
             lowerValue = 10;
             first = randInt(lowerValue, upperValue);
@@ -268,12 +300,12 @@ function generateQuestion(quizType = 1) {
             max = Math.max(first, second);
             min = Math.min(first, second);
             text = [];
-            text.push({ question: `If we take that <span class="equation">X + ${min} = ${max},</span> which value of <span class="equation">X</span> would satisfy the equation? <p class="hint">(HINT: Which number do you need to add to ${min}, so that the final result is ${max}?)</p>`, answer: max - min });
-            text.push({ question: `Given that <span class="equation">${max} - X = ${min},</span> which value of <span class="equation">X</span> would balance the equation? <p class="hint">(HINT: Which value needs to be subtracted from ${max} so that the final result is ${min}?)</p>`, answer: max - min });
-            text.push({ question: `What is the value of <span class="equation">X</span> in the equation below? <p><span class="equation">${max} - ${min} = X</span></p><p class="hint">(HINT: Subtract ${min} from ${max} to get the answer.)</p>`, answer: max - min });
+            text.push({ question: `If we take that <span class="equation">X + ${min} = ${max},</span> which value of <span class="equation">X</span> would satisfy the equation? <p class="hint">HINT: <br>Which number do you need to add to ${min}, so that the final result is ${max}?</p>`, answer: max - min });
+            text.push({ question: `Given that <span class="equation">${max} - X = ${min},</span> which value of <span class="equation">X</span> would balance the equation? <p class="hint">HINT: <br>Which value needs to be subtracted from ${max} so that the final result is ${min}?</p>`, answer: max - min });
+            text.push({ question: `What is the value of <span class="equation">X</span> in the equation below? <p><span class="equation">${max} - ${min} = X</span></p><p class="hint">HINT: <br>Subtract ${min} from ${max} to get the answer.</p>`, answer: max - min });
             text.push({
                 question: `What is the value of <span class="equation">X</span> in the equation below?<p class="equation">${upperValue - max} + ${min} = X</p>
-                <p class="hint">(HINT: Adding the numbers together would give you the result.)</p>`, answer: (upperValue - max) + min
+                <p class="hint">HINT: <br>Adding the numbers together would give you the result.</p>`, answer: (upperValue - max) + min
             });
 
             // Destructure
@@ -293,6 +325,10 @@ function markLastQuestion(statusId = 'correct') {
     question = document.querySelector('#question')
     question.classList.add(statusId);
     question.id = '';
+
+    //  And remove event listeners on this object
+    question.removeEventListener('click', toggleHint, true);
+    question.removeEventListener('mouseout', hideHint, true);
 }
 
 // Insert new question into the document
@@ -309,6 +345,10 @@ function insertNewQuestion({ question, answer }, selectorId = 'question') {
     answerBox.focus();
 
     currentQuestion++;
+
+    // Add event listener for a hint
+    p.addEventListener('click', toggleHint, true);
+    p.addEventListener('mouseout', hideHint, true);
 
     return { question, answer };
 }
@@ -414,7 +454,7 @@ function addBigButton(text = 'Continue?') {
     newButton.focus();
 
     // Listen on the newly created button
-    newButton.addEventListener('click', () => continuePlay());
+    newButton.addEventListener('click', continuePlay, true);
 }
 
 // Extend the quiz by another round
@@ -422,7 +462,7 @@ function continuePlay() {
     // remove continuation button
     const inSection = document.querySelector('main section:last-of-type p');
     const contButton = document.querySelector('#continue-button');
-    contButton.removeEventListener('click', () => continuePlay());
+    contButton.removeEventListener('click', continuePlay, true);
     inSection.removeChild(contButton);
 
     // Remove last score details
@@ -529,6 +569,16 @@ function listQuizTypes(exclude='') {
     return arr;
 }
 
+// Show or Hide hints
+function toggleHint() {
+    const hintPara = document.querySelector('#question p:last-child');
+    hintPara.style.opacity = hintPara.style.opacity == 0 ? 1 : 0;
+}
+
+function hideHint() {
+    const hintPara = document.querySelector('#question p:last-child');
+    hintPara.style.opacity = 0;
+}
 
 /****************************** */
 /* Set event listeners/handlers */
@@ -558,6 +608,7 @@ answerInput.addEventListener('keypress', (key) => {
 // Listen for button press after answer is inserted
 answerButton = document.querySelector('#confirmanswer');
 answerButton.addEventListener('click', () => checkAnswer());
+
 
 
 /***************************************/
