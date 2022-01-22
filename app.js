@@ -459,7 +459,8 @@ function getQuizType() {
         return parseInt(quizForm['#quiz-type']);
     }
     // Otherwise, return a random quiz type
-    return randInt(1, 3);
+    let randomQuizTypeIndex = choice(listQuizTypes('mixed')).index;
+    return randomQuizTypeIndex;
 }
 
 // Show or hide main questions content
@@ -514,6 +515,18 @@ function questionsRemainingMessage() {
     let plural = num > 1 ? 's' : '';
     text.innerText = `Answer ${num} more question${plural} correctly to complete this round.`;
     return num;
+}
+
+// List of quiz type indices
+function listQuizTypes(exclude='') {
+    const arr = [];
+    const quizTypes = document.querySelectorAll('#quiz-type option');
+    quizTypes.forEach((option, index) => {
+        if (!option.disabled && option.value !== exclude) {
+            arr.push({index: index, label: option.label});
+        }
+    });
+    return arr;
 }
 
 
