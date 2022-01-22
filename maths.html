@@ -26,16 +26,17 @@
     <main class="quiz">
         <!-- Main article where the questions are shown  -->
         <article class="questions-box">
-            <h1>Play maths!</h1>
+            <h1>Play math!</h1>
             <section class="qcontainer">
                 <p id="top-question">
-                    Here are some simple maths questions. <br>Can you answer them?
+                    Here are some simple math questions. <br>Can you answer them?
                 </p>
                 <!-- New questions are inserted here -->
             </section>
             <section>
                 <p>
-                    <label for="answer">Place your answer in the box below.<br> <span id="remaining-questions"></span></label>
+                    <label for="answer">Place your answer in the box below.<br> <span
+                            id="remaining-questions"></span></label>
                     <input id="answer" type="number" min="0">
                     <button id="confirmanswer" class="big-button">Answer</button>
                     <!-- New big button (for continuation) is inserted hereafter -->
@@ -47,15 +48,14 @@
         <!-- Game settings in <aside> -->
         <aside class="settings-box">
             <h2>Settings</h2>
-            <form action="">
+            <form id="settings-form">
                 <div class="form-item">
                     <label for="player-name">Player's Name: </label>
-                    <input id="player-name" type="text" name="player" placeholder="Player" minlength="3" maxlength="20"
-                        required>
+                    <input id="player-name" type="text" name="player" placeholder="Player" minlength="3" maxlength="20">
                 </div>
                 <div class="form-item">
-                    <label for="difficulty-level">Quiz type:</label>
-                    <select name="level" id="difficulty-level" required>
+                    <label for="quiz-type">Quiz type:</label>
+                    <select name="level" id="quiz-type" required>
                         <option name="level" value="" disabled>-- Select Quiz Type --</option>
                         <option name="level" value="1" selected>Comprehension - Level 1 (Multiplication)</option>
                         <option name="level" value="2">Equations - Level 1 (Addition/Subtraction)</option>
@@ -68,10 +68,10 @@
                     <input id="questions-per-round" type="number" min="2" max="50" value="20" name="questions">
                 </div>
                 <div class="form-item">
-                    <input id="keep-score" type="checkbox" name="keep-score" value="yes" checked>
+                    <input id="keep-score" type="checkbox" name="keep-score"  checked>
                     <label for="keep-score">Keep the score</label>
                 </div>
-                <button id="startbutton" type='button' title="Apply settings and start play">Start</button>
+                <button id="startbutton" type='submit' title="Apply settings and start play">Start</button>
             </form>
         </aside>
 

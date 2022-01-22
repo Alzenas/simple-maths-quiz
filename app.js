@@ -14,7 +14,6 @@ class thing {
     }
 }
 
-
 const things = {
     items: [
         'tomato, tomatoes',
@@ -63,7 +62,6 @@ const things = {
 }
 things.initialiseItems();
 
-
 class person {
     constructor(name, gender) {
         this.name = name;
@@ -76,7 +74,6 @@ class person {
         return this.gender[0].toLowerCase() == 'm' ? 'his' : 'her';
     }
 }
-
 
 const listOfPeople = {
     maleNames: [
@@ -164,11 +161,29 @@ listOfPeople.shuffleNames();
 
 
 /****************************/
+/*   Define parameters      */
+/****************************/
+let maxQuestions = 0;
+let correctAnswers = 0;
+let wrongAnswers = 0;
+let currentQuestion = 1;
+let questionAsked;
+const quizForm = {
+    '#player-name': '',
+    '#quiz-type': '',
+    '#questions-per-round': '',
+    '#keep-score': false
+};
+
+
+/****************************/
 /*   Define functions       */
 /****************************/
+
+// Generate a random integer
 function randInt(from, to, ...dontCare) {
-    // Generates a random integer 
-    // between 'from' and 'to' (inclusive)
+
+    // Generates a random integer between 'from' and 'to' (inclusive)
     const default_rand = 100;
     if (arguments.length == 0) {
         // If neither 'from' or 'to' were defined
@@ -176,19 +191,16 @@ function randInt(from, to, ...dontCare) {
         return Math.floor(Math.random() * (default_rand + 1));
     }
     else if (!to) {
-        // If 'to' was not passed, return a random
-        // integer from 0 and 'from'
+        // If 'to' was not passed, return a random integer from 0 and 'from'
         return Math.floor(Math.random() * (from + 1));
     }
 
-    // both 'from' and 'to' were defined, then
-    // return a random integer between 'from' and 'to'
-    // (inclusive)
+    // if both 'from' and 'to' were defined, 
+    // then return a random integer between 'from' and 'to'(inclusive)
     const span = to - from;
     const rnd = Math.round(Math.random() * span);
     return (from + rnd);
 }
-
 
 // Returns a randomly selected item from the list
 function choice(arr) {
@@ -196,8 +208,8 @@ function choice(arr) {
 }
 
 // Generate a random question
-function generateQuestion(diffLevel = 1) {
-    // Generate a random questions
+function generateQuestion(quizType = 1) {
+    // Define required parameters
     let question;
     let answer;
 
@@ -211,7 +223,7 @@ function generateQuestion(diffLevel = 1) {
     let max;
     let text = [];
 
-    switch (diffLevel) {
+    switch (quizType) {
         case 1:
             minMultiplier = 2;  // Given as a variable for future control
             maxMultiplier = 10;  // Given as a variable for future control
@@ -275,7 +287,6 @@ function generateQuestion(diffLevel = 1) {
     return { question, answer };
 }
 
-
 // Mark last question as correct or wrong based on arguments passed
 function markLastQuestion(statusId = 'correct') {
     // Select last paragraph in .qcontainer section:
@@ -292,6 +303,7 @@ function insertNewQuestion({ question, answer }, selectorId = 'question') {
     p.innerHTML = `<span class="question-title">Question ${currentQuestion}.</span>` + question;
     inSection.appendChild(p);
 
+    // Clear the answer box and focus upon it
     const answerBox = document.querySelector('#answer');
     answerBox.value = '';
     answerBox.focus();
@@ -301,12 +313,11 @@ function insertNewQuestion({ question, answer }, selectorId = 'question') {
     return { question, answer };
 }
 
-
 // Insert a correct answer into document model
-function insertCorrectAnswer({ question, answer }, selectorId = 'correct-answer') {
+function insertCorrectAnswer(answer, className = 'correct-answer') {
     const inSection = document.querySelector('.qcontainer');
     const p = document.createElement('p');
-    p.classList.add(selectorId);
+    p.classList.add(className);
     p.innerHTML = `<span class='correction-text'>${getAnswerFromHTML()}</span> is not a correct answer. The correct answer was: <span class='correction-text'>${answer}</span>.`;
     inSection.appendChild(p);
 }
@@ -317,7 +328,6 @@ function getAnswerFromHTML() {
     return givenAnswer;
 }
 
-
 // Check if answer given by the user is correct
 function isAnswerCorrect() {
     const response = getAnswerFromHTML();
@@ -327,36 +337,44 @@ function isAnswerCorrect() {
     return response === questionAsked.answer;
 }
 
-
 // Provide a response to user's answer
 function checkAnswer() {
     const htmlAnswer = isAnswerCorrect();
+
+    // If the response was not nothing:
     if (!isNaN(htmlAnswer)) {
+
+        // if correct answer was given
         if (htmlAnswer) {
             markLastQuestion('correct');
             correctAnswers++;
         }
+        // if wrong answer was given
         else {
             markLastQuestion('wrong');
             wrongAnswers++;
             maxQuestions++;
-            insertCorrectAnswer(questionAsked);
+            insertCorrectAnswer(questionAsked.answer);
         }
+
+        // Check if the maximum number of qustions is reached
         if (currentQuestion <= maxQuestions) {
-            setDifficultyLevel();
-            questionAsked = generateQuestion(difficulty)
+            let quizType = getQuizType();
+            questionAsked = generateQuestion(quizType);
             insertNewQuestion(questionAsked);
             questionsRemainingMessage();
         }
+        // and if it has, call 'end of play'
         else {
             endOfPlay();
         }
     }
+
+    // Clear the answer box and focus upon it
     const answerBox = document.querySelector('#answer');
     answerBox.value = '';
     answerBox.focus();
 }
-
 
 // Runs when the last question of the round was done
 function endOfPlay() {
@@ -378,32 +396,32 @@ function endOfPlay() {
     answerBox.hidden = true;
     answerLabel.style.visibility = 'collapse';
 
-    // Add new button for continuation of play, 
-    // to ask the user if they want to continue
-    addBigButton();
+    // Add new button for continuation of play (Continue?)
+    addBigButton('Another round?');
 }
 
+// Add Continue Play? button to the page
 function addBigButton(text = 'Continue?') {
     // Select the paragraph to which the big button will be added
-    inSection = document.querySelector('main section:last-of-type p');
+    const inSection = document.querySelector('main section:last-of-type p');
 
     // create a new big button
     const newButton = document.createElement('button');
     newButton.classList.add('big-button');
-    newButton.id = 'continuebutton'
+    newButton.id = 'continue-button'
     newButton.innerText = text;
     inSection.appendChild(newButton);
     newButton.focus();
 
-    // Define onclick action for the button
+    // Listen on the newly created button
     newButton.addEventListener('click', () => continuePlay());
 }
 
-
+// Extend the quiz by another round
 function continuePlay() {
     // remove continuation button
     const inSection = document.querySelector('main section:last-of-type p');
-    const contButton = document.querySelector('#continuebutton');
+    const contButton = document.querySelector('#continue-button');
     contButton.removeEventListener('click', () => continuePlay());
     inSection.removeChild(contButton);
 
@@ -416,41 +434,36 @@ function continuePlay() {
     const confButton = inSection.querySelector('button.big-button');
     confButton.hidden = false;
 
-    // show previusly hidden button, answer box and answer label
+    // Show previusly hidden button, answer box and answer label
     answerBox = document.querySelector('#answer');
     answerLabel = document.querySelector('label[for="answer"]');
     answerBox.hidden = false;
     answerLabel.style.visibility = 'visible';
 
-    // Set counters 
-    maxQuestions += questionsInRound;
+    // Also, increase the max number of questions
+    maxQuestions += parseInt(quizForm['#questions-per-round']);
 
     // Insert new question
-    setDifficultyLevel();
-    questionAsked = generateQuestion(difficulty);
+    let quizType = getQuizType();
+    questionAsked = generateQuestion(quizType);
     insertNewQuestion(questionAsked);
+
+    // and update the message about remaining questions
     questionsRemainingMessage();
 }
 
-function setQuestionsInRound() {
-    questionsInRound = parseInt(document.querySelector('#questions-per-round').value);
-    maxQuestions = questionsInRound;
-    return questionsInRound;
-}
-
-function setDifficultyLevel() {
-    difficulty = document.querySelector('#difficulty-level').value;
-    if (difficulty != 'mixed') {
-        difficulty = parseInt(difficulty);
-        return difficulty;
+// Gets a quiz type from quiz settings form
+function getQuizType() {
+    // Unless quiz type is mixed, return an integer value from the form
+    if (quizForm['#quiz-type'] != 'mixed') {
+        return parseInt(quizForm['#quiz-type']);
     }
-    // Otherwise, mix difficulty levels
-    difficulty = randInt(1, 3);
-    return difficulty;
+    // Otherwise, return a random quiz type
+    return randInt(1, 3);
 }
 
+// Show or hide main questions content
 function showMainArticle(show = true) {
-    // Show/Hide article
     article = document.querySelector('.questions-box');
     article.style.visibility = show ? 'visible' : 'collapse'
 
@@ -461,8 +474,8 @@ function showMainArticle(show = true) {
     return article;
 }
 
+// Show or hide quiz settings form
 function showSetUp(show = true) {
-    // Show/Hide set up box
     const aside = document.querySelector('.settings-box');
     aside.style.visibility = show ? 'visible' : 'collapse'
 
@@ -477,21 +490,24 @@ function showSetUp(show = true) {
     return aside;
 }
 
-
+// Start the quiz
 function startPlay() {
+    // Show questions content and hide quiz settings form
     showMainArticle(true);
     showSetUp(false);
 
-    setDifficultyLevel();
-    questionAsked = generateQuestion(difficulty);
+    maxQuestions = parseInt(quizForm['#questions-per-round']);
+    questionAsked = generateQuestion(getQuizType());
     insertNewQuestion(questionAsked);
+
+    // Focus on answer box
     document.querySelector('#answer').focus();
 
-    setQuestionsInRound();
+    // and update the 'questions remaining' message
     questionsRemainingMessage();
 }
 
-
+// Calculate the number of remaining questions and update the message
 function questionsRemainingMessage() {
     const text = document.querySelector('#remaining-questions');
     const num = maxQuestions - currentQuestion + 2;
@@ -500,41 +516,33 @@ function questionsRemainingMessage() {
     return num;
 }
 
-let questionsInRound = 2;
-let maxQuestions = questionsInRound;
-let correctAnswers = 0;
-let wrongAnswers = 0;
-let currentQuestion = 1;
-let questionAsked;
-let difficulty;
 
 /****************************** */
 /* Set event listeners/handlers */
 /****************************** */
 
-// For when difficulty level is changed
-diffLevelDropDown = document.querySelector('#difficulty-level');
-diffLevelDropDown.addEventListener('change', () => setDifficultyLevel());
+// Listen for a quiz form submit button and update quizForm dictionary
+const settingsForm = document.querySelector('#settings-form');
+settingsForm.addEventListener('submit', (evnt) => {
+    evnt.preventDefault();
+    // Update quizForm dictionary
+    for (let key in quizForm) {
+        let target = document.querySelector(key);
+        quizForm[key] = key === '#keep-score' ? target.checked : target.value;
+    }
+    // begin
+    startPlay();
+});
 
-// For when questions per round is changed
-questPerRoundNumber = document.querySelector('#questions-per-round');
-questPerRoundNumber.addEventListener('change', () => setQuestionsInRound());
-
-// When on-page start button is clicked
-startButton = document.querySelector('#startbutton');
-startButton.addEventListener('click', () => startPlay());
-
-// When Enter is pressed after user inserts the answer
+// Listen for 'Enter' or 'Space' after user inserts their answer
 answerInput = document.querySelector('#answer');
 answerInput.addEventListener('keypress', (key) => {
-    // If either Enter or Space are pressed, then click the button
     if (['enter', 'space'].indexOf(key.code.toLowerCase()) != -1) {
-        // click answerButton
-        answerButton.click();
+        checkAnswer();
     }
 });
 
-// When confirm answer button is pressed
+// Listen for button press after answer is inserted
 answerButton = document.querySelector('#confirmanswer');
 answerButton.addEventListener('click', () => checkAnswer());
 
@@ -546,7 +554,8 @@ answerButton.addEventListener('click', () => checkAnswer());
 // Hide main article initially
 showMainArticle(false);
 
-// Show set up 
+// Show quiz settings form
 showSetUp(true);
 
+// Update the number of questions remaining
 questionsRemainingMessage();

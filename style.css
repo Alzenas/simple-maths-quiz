@@ -48,7 +48,7 @@ main h1 {
     filter: drop-shadow(0em 0em 1em rgba(0, 0, 0, 0.5));
 }
 
-.settings-box form label {
+#settings-form label {
     display: block;
     font-size: 0.9em;
     margin-bottom: 0.25em;
@@ -60,7 +60,7 @@ main h1 {
     width: 100%;
 }
 
-#difficulty-level {
+#quiz-type {
     padding: 0.25em;
     width: 100%;
 }
@@ -71,7 +71,7 @@ main h1 {
     text-align: center;
 }
 
-.settings-box form label[for="keep-score"], #keep-score {
+#settings-form label[for="keep-score"], #keep-score {
     display: inline;
     vertical-align:-webkit-baseline-middle;
 }
